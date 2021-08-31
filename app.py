@@ -23,7 +23,7 @@ def predict():
 
     raw_tweet = request.form.values()[0]
     prepped_tweet = tweet_preprocessing(raw_tweet)
-    vectorized_tweet
+    vectorized_tweet = 
     prediction = model.predict(final_features)
 
     output = prediction[0]

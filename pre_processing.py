@@ -9,7 +9,28 @@ import re
 nltk.download("stopwords")
 nltk.download("wordnet")
 
-def tweet_preprocessing(tweet, stops = stopwords.words('english'), lemmatizer = nltk.stem.WordNetLemmatizer()):
+SENTIMENT_VALUE_CODES =   {'No emotion toward brand or product': 0,
+                            'Positive emotion': 1,
+                            'Negative emotion': -1,
+                            "I can't tell": np.nan}
+
+DEFAULT_STOPS = stopwords.words('english') + ['sxsw']
+DEFAULT_LEMMATIZER = nltk.stem.WordNetLemmatizer()
+
+def data_prep(raw_df):
+    '''
+    Preprocess the CSV to ready it for text preprocessing
+    '''
+    df = raw_df.copy()
+    df = df.rename({'is_there_an_emotion_directed_at_a_brand_or_product': 'sentiment'}, axis=1)
+    df = df.drop('emotion_in_tweet_is_directed_at', axis=1)
+    df['sentiment'] = df['sentiment'].map(SENTIMENT_VALUE_CODES)
+    df.dropna(implace=True)
+    df = df.astype({'sentiment': 'int8'})
+    
+    return df
+
+def tweet_preprocessing(tweet, stops = DEFAULT_STOPS, lemmatizer = DEFAULT_LEMMATIZER):
     '''
     Preprocesses a tweet for sentiment analysis using a given list of stop words and lemmatizer
     '''
@@ -21,7 +42,7 @@ def tweet_preprocessing(tweet, stops = stopwords.words('english'), lemmatizer = 
     token_tweet = lower_tweet.replace("'", " ").split(" ")
     
     # Define stopword list
-    stops = stops + ['sxsw']
+    stops = stops
     
     # Define regex pattern
     pattern = re.compile('[^a-zA-Z]+') 
