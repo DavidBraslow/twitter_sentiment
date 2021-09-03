@@ -8,4 +8,4 @@ Make sure you have the latest version of Python installed.
   
 ## Running The App
 
-    python main.py
+    python app.py
