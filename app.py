@@ -35,13 +35,13 @@ def predict():
 def results():
 
     data = request.get_json(force=True)
-    raw_tweet = data.values()[0]
+    raw_tweet = list(data.values())[0]
     prepped_tweet = tweet_preprocessing(raw_tweet)
     vectorized_tweet = vectorizer.transform([prepped_tweet])
     prediction = model.predict(vectorized_tweet)
 
     output = prediction[0]
-    return jsonify(output)
+    return jsonify(tweet_sentiment=label_output(output))
 
 if __name__ == "__main__":
     app.run(debug=True)
