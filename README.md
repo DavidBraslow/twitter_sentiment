@@ -9,3 +9,5 @@ Make sure you have the latest version of Python installed.
 ## Running The App
 
     python app.py
+
+Go to http://localhost:5000/ to view the app. Manually enter the text of a tweet to get a predicted sentiment.
