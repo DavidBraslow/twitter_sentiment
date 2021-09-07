@@ -41,9 +41,6 @@ def tweet_preprocessing(tweet, stops = DEFAULT_STOPS, lemmatizer = DEFAULT_LEMMA
     # Tokenize on spaces and apostrophes
     token_tweet = lower_tweet.replace("'", " ").split(" ")
     
-    # Define stopword list
-    stops = stops
-    
     # Define regex pattern
     pattern = re.compile('[^a-zA-Z]+') 
     

@@ -10,9 +10,9 @@ vectorizer = pickle.load(open('pickled_vectorizer.sav', 'rb'))
 model = pickle.load(open('pickled_model.sav', 'rb'))
 
 def label_output(output):
-    if output == -1 return "Negative"
-    elif output == 1 return "Positive"
-    else return "Neutral"
+    if output == -1: return "Negative"
+    elif output == 1: return "Positive"
+    else: return "Neutral"
 
 @app.route('/')
 def home():
@@ -21,10 +21,11 @@ def home():
 @app.route('/predict',methods=['POST'])
 def predict():
 
-    raw_tweet = request.form.values()[0]
+    data = request.form.values()
+    raw_tweet = list(data)[0]
     prepped_tweet = tweet_preprocessing(raw_tweet)
-    vectorized_tweet = 
-    prediction = model.predict(final_features)
+    vectorized_tweet = vectorizer.transform([prepped_tweet])
+    prediction = model.predict(vectorized_tweet)
 
     output = prediction[0]
 
@@ -34,7 +35,10 @@ def predict():
 def results():
 
     data = request.get_json(force=True)
-    prediction = model.predict([np.array(list(data.values()))])
+    raw_tweet = data.values()[0]
+    prepped_tweet = tweet_preprocessing(raw_tweet)
+    vectorized_tweet = vectorizer.transform([prepped_tweet])
+    prediction = model.predict(vectorized_tweet)
 
     output = prediction[0]
     return jsonify(output)
