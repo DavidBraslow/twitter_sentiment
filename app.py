@@ -6,8 +6,8 @@ import pickle
 from pre_processing import tweet_preprocessing
 
 app = Flask(__name__)
-vectorizer = pickle.load(open('pickled_vectorizer.sav', 'rb'))
-model = pickle.load(open('pickled_model.sav', 'rb'))
+vectorizer = pickle.load(open('model/pickled_vectorizer.sav', 'rb'))
+model = pickle.load(open('model/pickled_model.sav', 'rb'))
 
 def label_output(output):
     if output == -1: return "Negative"

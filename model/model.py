@@ -15,7 +15,7 @@ from sklearn.dummy import DummyClassifier
 
 import pickle
 
-raw_df = pd.read_csv("judge-1377884607_tweet_product_company.csv")
+raw_df = pd.read_csv("data/judge-1377884607_tweet_product_company.csv")
 df = data_prep(raw_data)
 
 tweet_corpus = df['tweet_text'].apply(tweet_preprocessing)
