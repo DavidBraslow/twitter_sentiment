@@ -3,7 +3,7 @@
 
 Make sure you have the latest version of Python installed.
 
-    git clone <repo-url>
+    git clone https://github.com/DavidBraslow/twitter_sentiment/
     pip install -r requirements.txt
   
 ## Running The App
